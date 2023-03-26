@@ -80,7 +80,7 @@ public class Menu extends javax.swing.JPanel {
         );
 
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setText("Copyright@HIEUTHNHAT");
+        jLabel2.setText("Copyright@HIEUTHUNHAT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

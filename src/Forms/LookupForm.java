@@ -5,7 +5,9 @@
  */
 package Forms;
 
+import Model.Dictionary;
 import Model.Model_Button;
+import Model.RecordWord;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,13 +17,14 @@ import javax.swing.ImageIcon;
 public class LookupForm extends javax.swing.JPanel {
 
     private int keyLanguage = 1; // 1 - Anh Viet ; 0 - Viet Anh 
-
+    Dictionary dictionary = new Dictionary();
     /**
      * Creates new form Form_1
+     * @param d
      */
-    public LookupForm() {
+    public LookupForm(Dictionary d) {
         initComponents();
-
+        dictionary = d;
         SearchButton.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/search.png")), "Tìm kiếm"));
         SwitchLanguage.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
 
@@ -42,14 +45,17 @@ public class LookupForm extends javax.swing.JPanel {
         SwitchLanguage = new Component.Button();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
+        meaningSearch = new javax.swing.JTextArea();
+        titleSearch = new javax.swing.JLabel();
 
         SearchText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(28, 181, 224)));
 
         SearchButton.setColor1(new java.awt.Color(28, 181, 224));
         SearchButton.setColor2(new java.awt.Color(0, 0, 120));
         SearchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchButtonMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 SearchButtonMouseEntered(evt);
             }
@@ -87,14 +93,15 @@ public class LookupForm extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        meaningSearch.setEditable(false);
+        meaningSearch.setColumns(20);
+        meaningSearch.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        meaningSearch.setRows(5);
+        jScrollPane1.setViewportView(meaningSearch);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(16, 103, 158));
-        jLabel1.setText("Từ khóa `  ` được dịch như sau:");
+        titleSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        titleSearch.setForeground(new java.awt.Color(16, 103, 158));
+        titleSearch.setText("Từ khóa `  ` được dịch như sau:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -105,17 +112,17 @@ public class LookupForm extends javax.swing.JPanel {
                 .addGap(0, 54, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titleSearch)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel1)
+                .addComponent(titleSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -134,8 +141,7 @@ public class LookupForm extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -149,25 +155,49 @@ public class LookupForm extends javax.swing.JPanel {
         if (keyLanguage == 1) {
             keyLanguage = 0;
             SwitchLanguage.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Việt - Anh"));
-            SearchText.setHintText("Nhập từ tiếng Việt");
+            //SearchText.setHintText("Nhập từ tiếng Việt");
         } else {
             keyLanguage = 1;
             SwitchLanguage.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
-            SearchText.setHintText("Nhập từ tiếng Anh");
+            //SearchText.setHintText("Nhập từ tiếng Anh");
 
         }
 
     }//GEN-LAST:event_SwitchLanguageMouseClicked
+
+    private void SearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseClicked
+        // TODO add your handling code here:
+        String searchText = SearchText.getText();
+        searchText = searchText.toLowerCase();
+        if(keyLanguage == 1){
+            RecordWord recordWord = dictionary.getAnh_Viet();
+            String meaning = recordWord.getMeaning(searchText);
+            if(meaning == null){
+                meaningSearch.setText("Không tìm thấy !!!!!");
+            } else meaningSearch.setText(meaning);
+            String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
+            titleSearch.setText(str);
+        } else {
+            RecordWord recordWord = dictionary.getViet_Anh();
+            String meaning = recordWord.getMeaning(searchText);
+            if(meaning == null){
+                meaningSearch.setText("Không tìm thấy !!!!!");
+            } else meaningSearch.setText(meaning);
+            String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
+            titleSearch.setText(str);
+        }
+        
+    }//GEN-LAST:event_SearchButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Component.Button SearchButton;
     private Component.Header SearchText;
     private Component.Button SwitchLanguage;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea meaningSearch;
+    private javax.swing.JLabel titleSearch;
     // End of variables declaration//GEN-END:variables
 }

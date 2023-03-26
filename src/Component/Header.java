@@ -22,6 +22,8 @@ public class Header extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/search.png"))); // NOI18N
 
+        searchText1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -52,6 +54,10 @@ public class Header extends javax.swing.JPanel {
     
     public void setHintText(String txt){
         searchText1.setText(txt);
+    }
+    
+    public String getText(){
+        return searchText1.getText();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

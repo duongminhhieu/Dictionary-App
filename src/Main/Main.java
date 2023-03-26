@@ -9,6 +9,8 @@ import Event.EventMenuSelected;
 import Forms.LookupForm;
 import Forms.Form_2;
 import Forms.Form_3;
+import Model.Dictionary;
+import Model.HandleXMLFile;
 import java.awt.Color;
 import javax.swing.JComponent;
 
@@ -21,14 +23,17 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    private LookupForm form1;
+    Dictionary dictionary;
+    HandleXMLFile handleXMLFile;
+    private LookupForm lookupForm;
     private Form_2 form2;
     private Form_3 form3;
 
     public Main() {
+        init();
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        form1 = new LookupForm();
+        lookupForm = new LookupForm(dictionary);
         form2 = new Form_2();
         form3 = new Form_3();
         menu.initMoving(Main.this);
@@ -36,20 +41,27 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void selected(int index) {
                 if (index == 0) {
-                    setForm(form1);
+                    setForm(lookupForm);
                 } else if (index == 1) {
-                    setForm(form1);
+                    setForm(lookupForm);
                 } else if (index == 2) {
                     setForm(form2);
                 } else if (index == 3) {
                     setForm(form3);
-                } else if (index == 6){
+                } else if (index == 6) {
                     System.exit(0);
                 }
             }
         });
         //  set when system open start with home form
-        setForm(new LookupForm());
+        setForm(new LookupForm(dictionary));
+    }
+
+    public void init() {
+        dictionary = new Dictionary();
+        handleXMLFile = new HandleXMLFile();
+        dictionary.setAnh_Viet(handleXMLFile.readXMLFile("Data/Anh_Viet.xml"));
+        dictionary.setViet_Anh(handleXMLFile.readXMLFile("Data/Viet_Anh.xml"));
     }
 
     private void setForm(JComponent com) {
