@@ -6,9 +6,13 @@
 package Forms;
 
 import Model.Dictionary;
+import Model.HandleXMLFile;
 import Model.Model_Button;
 import Model.RecordWord;
+import Swing.SearchText;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,9 +21,12 @@ import javax.swing.ImageIcon;
 public class LookupForm extends javax.swing.JPanel {
 
     private int keyLanguage = 1; // 1 - Anh Viet ; 0 - Viet Anh 
+    private int keyFavourite = 0; // 1 - true ; 0 - false
     Dictionary dictionary = new Dictionary();
+
     /**
      * Creates new form Form_1
+     *
      * @param d
      */
     public LookupForm(Dictionary d) {
@@ -27,7 +34,7 @@ public class LookupForm extends javax.swing.JPanel {
         dictionary = d;
         SearchButton.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/search.png")), "Tìm kiếm"));
         SwitchLanguage.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
-
+        favoriteWord.setVisible(false);
     }
 
     /**
@@ -47,8 +54,19 @@ public class LookupForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         meaningSearch = new javax.swing.JTextArea();
         titleSearch = new javax.swing.JLabel();
+        favoriteWord = new javax.swing.JPanel();
+        iconStar = new javax.swing.JLabel();
+        titleSearch1 = new javax.swing.JLabel();
 
         SearchText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(28, 181, 224)));
+        SearchText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SearchTextKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                SearchTextKeyTyped(evt);
+            }
+        });
 
         SearchButton.setColor1(new java.awt.Color(28, 181, 224));
         SearchButton.setColor2(new java.awt.Color(0, 0, 120));
@@ -58,6 +76,11 @@ public class LookupForm extends javax.swing.JPanel {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 SearchButtonMouseEntered(evt);
+            }
+        });
+        SearchButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SearchButtonKeyPressed(evt);
             }
         });
 
@@ -103,26 +126,68 @@ public class LookupForm extends javax.swing.JPanel {
         titleSearch.setForeground(new java.awt.Color(16, 103, 158));
         titleSearch.setText("Từ khóa `  ` được dịch như sau:");
 
+        favoriteWord.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        favoriteWord.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                favoriteWordMouseClicked(evt);
+            }
+        });
+
+        iconStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/star.png"))); // NOI18N
+
+        titleSearch1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        titleSearch1.setForeground(new java.awt.Color(16, 103, 158));
+        titleSearch1.setText("Yêu thích");
+
+        javax.swing.GroupLayout favoriteWordLayout = new javax.swing.GroupLayout(favoriteWord);
+        favoriteWord.setLayout(favoriteWordLayout);
+        favoriteWordLayout.setHorizontalGroup(
+            favoriteWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(favoriteWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(favoriteWordLayout.createSequentialGroup()
+                    .addGap(2, 2, 2)
+                    .addComponent(titleSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(iconStar)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        favoriteWordLayout.setVerticalGroup(
+            favoriteWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+            .addGroup(favoriteWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(favoriteWordLayout.createSequentialGroup()
+                    .addGap(2, 2, 2)
+                    .addGroup(favoriteWordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(titleSearch1)
+                        .addComponent(iconStar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(titleSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(favoriteWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 54, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titleSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(titleSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleSearch)
+                    .addComponent(favoriteWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -169,35 +234,82 @@ public class LookupForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         String searchText = SearchText.getText();
         searchText = searchText.toLowerCase();
-        if(keyLanguage == 1){
+        if (keyLanguage == 1) {
             RecordWord recordWord = dictionary.getAnh_Viet();
             String meaning = recordWord.getMeaning(searchText);
-            if(meaning == null){
+            if (meaning == null) {
                 meaningSearch.setText("Không tìm thấy !!!!!");
-            } else meaningSearch.setText(meaning);
+                favoriteWord.setVisible(false);
+
+            } else {
+                meaningSearch.setText(meaning);
+                favoriteWord.setVisible(true);
+            }
             String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
             titleSearch.setText(str);
         } else {
             RecordWord recordWord = dictionary.getViet_Anh();
             String meaning = recordWord.getMeaning(searchText);
-            if(meaning == null){
+            if (meaning == null) {
                 meaningSearch.setText("Không tìm thấy !!!!!");
-            } else meaningSearch.setText(meaning);
+                favoriteWord.setVisible(false);
+
+            } else {
+                meaningSearch.setText(meaning);
+                favoriteWord.setVisible(true);
+            }
             String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
             titleSearch.setText(str);
         }
-        
+
     }//GEN-LAST:event_SearchButtonMouseClicked
 
+    private void favoriteWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_favoriteWordMouseClicked
+        // TODO add your handling code here:
+        if (keyFavourite == 0) {
+            HandleXMLFile handleXMLFile = new HandleXMLFile();
+            RecordWord  r= new RecordWord();
+            r.addRecord("hello", "cure");
+            handleXMLFile.writeXMLFile("favorite", "Data/favorite.xml", r);
+            iconStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/star_yellow.png")));
+            JOptionPane.showMessageDialog(this, "Thêm vào danh sách yêu thích thành công!");
+            keyFavourite = 1;
+        } else {
+            iconStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/star.png")));
+            JOptionPane.showMessageDialog(this, "Đã xóa khỏi danh sách yêu thích !");
+            keyFavourite = 0;
+        }
+
+    }//GEN-LAST:event_favoriteWordMouseClicked
+
+    private void SearchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchButtonKeyPressed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_SearchButtonKeyPressed
+
+    private void SearchTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyPressed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_SearchTextKeyPressed
+
+    private void SearchTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_SearchTextKeyTyped
+
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Component.Button SearchButton;
     private Component.Header SearchText;
     private Component.Button SwitchLanguage;
+    private javax.swing.JPanel favoriteWord;
+    private javax.swing.JLabel iconStar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea meaningSearch;
     private javax.swing.JLabel titleSearch;
+    private javax.swing.JLabel titleSearch1;
     // End of variables declaration//GEN-END:variables
 }
