@@ -28,7 +28,7 @@ public class RecordWord {
         records.put(word, meaning);
     }
     
-    public void removRecord(String word){
+    public void removeRecord(String word){
         records.remove(word);
     }
 

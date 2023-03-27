@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<newWordEng>
+<favoriteEnglish>
     <record>
         <word>hhhh</word>
         <meaning/>
@@ -8,8 +8,4 @@
         <word>dd</word>
         <meaning/>
     </record>
-    <record>
-        <word/>
-        <meaning/>
-    </record>
-</newWordEng>
+</favoriteEnglish>

@@ -248,11 +248,11 @@ public class AddNewWordForm extends javax.swing.JPanel {
     private void removeRecordFavorite(int keyL, String word) {
         HandleXMLFile handleXMLFile = new HandleXMLFile();
         if (keyL == 1) {
-            Dictionary.listFavoriteWordEnglish.removRecord(word);
+            Dictionary.listFavoriteWordEnglish.removeRecord(word);
             handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
 
         } else {
-            Dictionary.listFavoriteWordVietnamese.removRecord(word);
+            Dictionary.listFavoriteWordVietnamese.removeRecord(word);
             handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
 
         }
@@ -285,7 +285,7 @@ public class AddNewWordForm extends javax.swing.JPanel {
         meaning = meaningText.getText();
 
         System.out.println(textword + meaning);
-
+        
         if (textword != null && !textword.trim().isEmpty() && meaning != null && !meaning.isEmpty()) {
             addRecordNewWord(keyLanguage, textword, meaning);
             JOptionPane.showMessageDialog(this, "Thêm từ mới thành công!");

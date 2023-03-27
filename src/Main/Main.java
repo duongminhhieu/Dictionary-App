@@ -8,7 +8,7 @@ package Main;
 import Event.EventMenuSelected;
 import Forms.AddNewWordForm;
 import Forms.LookupForm;
-import Forms.Form_2;
+import Forms.HandleNewWordForm;
 import Forms.FavoriteListForm;
 import Model.Dictionary;
 import Model.HandleXMLFile;
@@ -27,7 +27,7 @@ public class Main extends javax.swing.JFrame {
     Dictionary dictionary;
     HandleXMLFile handleXMLFile;
     private LookupForm lookupForm;
-    private Form_2 form2;
+    private HandleNewWordForm form2;
     private FavoriteListForm favoriteListForm;
     private AddNewWordForm addNewWordForm;
 
@@ -38,7 +38,7 @@ public class Main extends javax.swing.JFrame {
 
         // set form
         lookupForm = new LookupForm(dictionary);
-        form2 = new Form_2();
+        form2 = new HandleNewWordForm();
         favoriteListForm = new FavoriteListForm();
         addNewWordForm = new AddNewWordForm();
         menu.initMoving(Main.this);

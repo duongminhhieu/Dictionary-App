@@ -29,14 +29,14 @@ import javax.swing.table.TableModel;
  *
  * @author RAVEN
  */
-public class FavoriteListForm extends javax.swing.JPanel {
+public class HandleNewWordForm extends javax.swing.JPanel {
 
     private int keyLanguage = 1;
 
     /**
      * Creates new form Form_1
      */
-    public FavoriteListForm() {
+    public HandleNewWordForm() {
         initComponents();
         init();
     }
@@ -45,6 +45,7 @@ public class FavoriteListForm extends javax.swing.JPanel {
         deleteBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/3.png")), "Xóa từ"));
         SelectAllBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/5.png")), "Chọn tất cả"));
         SwitchLanguageBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
+        addFavoriteBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/star.png")), "Yêu thích"));
 
         //  add row table
         jScrollTable.setVerticalScrollBar(new ScrollBar());
@@ -58,9 +59,9 @@ public class FavoriteListForm extends javax.swing.JPanel {
 
     public HashMap<String, String> readData(int keyL) {
         if (keyL == 1) {
-            return Dictionary.listFavoriteWordEnglish.getRecords();
+            return Dictionary.listNewWordAnh_Viet.getRecords();
         } else {
-            return Dictionary.listFavoriteWordVietnamese.getRecords();
+            return Dictionary.listNewWordViet_Anh.getRecords();
         }
     }
 
@@ -95,9 +96,9 @@ public class FavoriteListForm extends javax.swing.JPanel {
         deleteBtn = new Component.Button();
         SelectAllBtn = new Component.Button();
         SwitchLanguageBtn = new Component.Button();
+        addFavoriteBtn = new Component.Button();
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder2.setMinimumSize(new java.awt.Dimension(0, 0));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,7 +126,7 @@ public class FavoriteListForm extends javax.swing.JPanel {
         table.setColumnSelectionAllowed(true);
         table.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jScrollTable.setViewportView(table);
-        table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setMaxWidth(70);
             table.getColumnModel().getColumn(3).setMaxWidth(70);
@@ -133,7 +134,7 @@ public class FavoriteListForm extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(16, 103, 158));
-        jLabel1.setText("Danh sách yêu thích");
+        jLabel1.setText("Danh sách từ mới");
 
         jComboBox1.setBackground(new java.awt.Color(153, 204, 255));
         jComboBox1.setForeground(new java.awt.Color(153, 153, 153));
@@ -157,7 +158,7 @@ public class FavoriteListForm extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         panelBorder2Layout.setVerticalGroup(
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,57 +199,55 @@ public class FavoriteListForm extends javax.swing.JPanel {
             }
         });
 
+        addFavoriteBtn.setColor1(new java.awt.Color(255, 255, 0));
+        addFavoriteBtn.setColor2(new java.awt.Color(255, 204, 0));
+        addFavoriteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addFavoriteBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(SwitchLanguageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(SelectAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+            .addGap(0, 858, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(15, 15, 15)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(310, 310, 310)
+                            .addComponent(SwitchLanguageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(SelectAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(addFavoriteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(15, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SelectAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SwitchLanguageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+            .addGap(0, 654, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(35, 35, 35)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(SelectAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(SwitchLanguageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addFavoriteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(15, 15, 15)
+                    .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(36, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SwitchLanguageBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SwitchLanguageBtnMouseClicked
-        // TODO add your handling code here:
-        if (keyLanguage == 1) {
-            keyLanguage = 0;
-            SwitchLanguageBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Việt - Anh"));
-            //SearchText.setHintText("Nhập từ tiếng Việt");
-            addDataTable();
-
-        } else {
-            keyLanguage = 1;
-            SwitchLanguageBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
-            //SearchText.setHintText("Nhập từ tiếng Anh");
-            addDataTable();
-
-        }
-    }//GEN-LAST:event_SwitchLanguageBtnMouseClicked
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        // get selected value 
+        // get selected value
         int x = jComboBox1.getSelectedIndex();
         HashMap<String, String> records = readData(keyLanguage);
         // Chuyển HashMap thành List
@@ -321,15 +320,15 @@ public class FavoriteListForm extends javax.swing.JPanel {
 
         if (keyLanguage == 1) {
             for (String key : keysToRemove) {
-                Dictionary.listFavoriteWordEnglish.removeRecord(key);
+                Dictionary.listNewWordAnh_Viet.removeRecord(key);
             }
-            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/newWordAnh_Viet.xml", Dictionary.listNewWordAnh_Viet);
             addDataTable();
         } else {
             for (String key : keysToRemove) {
-                Dictionary.listFavoriteWordVietnamese.removeRecord(key);
+                Dictionary.listNewWordViet_Anh.removeRecord(key);
             }
-            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/newWordViet_Anh.xml", Dictionary.listNewWordViet_Anh);
             addDataTable();
         }
     }
@@ -353,12 +352,12 @@ public class FavoriteListForm extends javax.swing.JPanel {
 
         if (check == 1) {
             int confirm = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa những từ đã chọn !");
-            if (confirm == 0)
+            if (confirm == 0) {
                 deleteDataTable();
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn phần tử !");
         }
-
 
     }//GEN-LAST:event_deleteBtnMouseClicked
 
@@ -374,10 +373,85 @@ public class FavoriteListForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_SelectAllBtnMouseClicked
 
+    private void SwitchLanguageBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SwitchLanguageBtnMouseClicked
+        // TODO add your handling code here:
+        if (keyLanguage == 1) {
+            keyLanguage = 0;
+            SwitchLanguageBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Việt - Anh"));
+            //SearchText.setHintText("Nhập từ tiếng Việt");
+            addDataTable();
+
+        } else {
+            keyLanguage = 1;
+            SwitchLanguageBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
+            //SearchText.setHintText("Nhập từ tiếng Anh");
+            addDataTable();
+
+        }
+    }//GEN-LAST:event_SwitchLanguageBtnMouseClicked
+
+    public void addListFavoriteWord() {
+        TableModel model = table.getModel(); // Lấy TableModel của JTable
+        int rowCount = model.getRowCount(); // Số lượng dòng trong JTable
+        HandleXMLFile handleXMLFile = new HandleXMLFile();
+
+        if (keyLanguage == 1) {
+            for (int i = 0; i < rowCount; i++) {
+                Boolean checked = (Boolean) model.getValueAt(i, 3); // Lấy giá trị của cột boolean
+                if (checked != null && checked) {
+                    // Phần tử đã được chọn     
+                    String w = (String) model.getValueAt(i, 1);
+                    String m = (String) model.getValueAt(i, 2);
+                    Dictionary.listFavoriteWordEnglish.addRecord(w, m);
+                }
+            }
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listNewWordAnh_Viet);
+            addDataTable();
+        } else {
+            for (int i = 0; i < rowCount; i++) {
+                Boolean checked = (Boolean) model.getValueAt(i, 3); // Lấy giá trị của cột boolean
+                if (checked != null && checked) {
+                    // Phần tử đã được chọn     
+                    String w = (String) model.getValueAt(i, 1);
+                    String m = (String) model.getValueAt(i, 2);
+                    Dictionary.listFavoriteWordVietnamese.addRecord(w, m);
+                }
+            }
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listNewWordViet_Anh);
+            addDataTable();
+        }
+    }
+
+    private void addFavoriteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addFavoriteBtnMouseClicked
+        // TODO add your handling code here:
+        int columnIndex = 3; // Thay columnIndex bằng chỉ số của cột boolean trong JTable của bạn
+        int check = 0;
+        TableModel model = table.getModel(); // Lấy TableModel của JTable
+
+        int rowCount = model.getRowCount(); // Số lượng dòng trong JTable
+
+        for (int i = 0; i < rowCount; i++) {
+            Boolean checked = (Boolean) model.getValueAt(i, 3); // Lấy giá trị của cột boolean
+            if (checked != null && checked) {
+                check = 1;
+                break;
+            }
+        }
+
+        if (check == 1) {
+            addListFavoriteWord();
+            JOptionPane.showMessageDialog(this, "Thêm vào danh sách yêu thích thành công!");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn phần tử !");
+        }
+    }//GEN-LAST:event_addFavoriteBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Component.Button SelectAllBtn;
     private Component.Button SwitchLanguageBtn;
+    private Component.Button addFavoriteBtn;
     private Component.Button deleteBtn;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
