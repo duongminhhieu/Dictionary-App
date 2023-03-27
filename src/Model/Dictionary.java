@@ -11,6 +11,9 @@ public class Dictionary {
 
     private RecordWord Anh_Viet;
     private RecordWord Viet_Anh;
+    public static RecordWord listFavoriteWordEnglish;    
+    public static RecordWord listFavoriteWordVietnamese;
+
 
     
 //    Getter and Setter
@@ -29,6 +32,5 @@ public class Dictionary {
     public void setViet_Anh(RecordWord Viet_Anh) {
         this.Viet_Anh = Viet_Anh;
     }
-
     
 }

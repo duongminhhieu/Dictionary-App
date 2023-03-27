@@ -9,12 +9,12 @@ package Forms;
  *
  * @author RAVEN
  */
-public class Form_3 extends javax.swing.JPanel {
+public class FavoriteListForm extends javax.swing.JPanel {
 
     /**
      * Creates new form Form_1
      */
-    public Form_3() {
+    public FavoriteListForm() {
         initComponents();
     }
 

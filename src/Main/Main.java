@@ -8,7 +8,7 @@ package Main;
 import Event.EventMenuSelected;
 import Forms.LookupForm;
 import Forms.Form_2;
-import Forms.Form_3;
+import Forms.FavoriteListForm;
 import Model.Dictionary;
 import Model.HandleXMLFile;
 import java.awt.Color;
@@ -27,7 +27,7 @@ public class Main extends javax.swing.JFrame {
     HandleXMLFile handleXMLFile;
     private LookupForm lookupForm;
     private Form_2 form2;
-    private Form_3 form3;
+    private FavoriteListForm form3;
 
     public Main() {
         init();
@@ -35,7 +35,7 @@ public class Main extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
         lookupForm = new LookupForm(dictionary);
         form2 = new Form_2();
-        form3 = new Form_3();
+        form3 = new FavoriteListForm();
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -62,6 +62,8 @@ public class Main extends javax.swing.JFrame {
         handleXMLFile = new HandleXMLFile();
         dictionary.setAnh_Viet(handleXMLFile.readXMLFile("Data/Anh_Viet.xml"));
         dictionary.setViet_Anh(handleXMLFile.readXMLFile("Data/Viet_Anh.xml"));
+        Dictionary.listFavoriteWordEnglish = (handleXMLFile.readXMLFile("Data/favoriteEnglish.xml"));
+        Dictionary.listFavoriteWordVietnamese = (handleXMLFile.readXMLFile("Data/favoriteVietnamese.xml"));
     }
 
     private void setForm(JComponent com) {

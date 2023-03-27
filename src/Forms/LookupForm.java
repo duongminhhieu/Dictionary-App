@@ -22,6 +22,8 @@ public class LookupForm extends javax.swing.JPanel {
 
     private int keyLanguage = 1; // 1 - Anh Viet ; 0 - Viet Anh 
     private int keyFavourite = 0; // 1 - true ; 0 - false
+    private String searchText;
+    private String meaning;
     Dictionary dictionary = new Dictionary();
 
     /**
@@ -230,13 +232,53 @@ public class LookupForm extends javax.swing.JPanel {
 
     }//GEN-LAST:event_SwitchLanguageMouseClicked
 
+    private int checkFavoriteWord(int keyL, String word) {
+        if (keyL == 1) {
+            if (Dictionary.listFavoriteWordEnglish.checkWord(word)) {
+                return 1;
+            }
+            return 0;
+        } else {
+            if (Dictionary.listFavoriteWordVietnamese.checkWord(word)) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+
+    private void addRecordFavorite(int keyL, String word, String meaning) {
+        HandleXMLFile handleXMLFile = new HandleXMLFile();
+        if (keyL == 1) {
+            Dictionary.listFavoriteWordEnglish.addRecord(word, meaning);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
+
+        } else {
+            Dictionary.listFavoriteWordVietnamese.addRecord(word, meaning);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
+
+        }
+    }
+    
+     private void removeRecordFavorite(int keyL, String word) {
+        HandleXMLFile handleXMLFile = new HandleXMLFile();
+        if (keyL == 1) {
+            Dictionary.listFavoriteWordEnglish.removRecord(word);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
+
+        } else {
+            Dictionary.listFavoriteWordVietnamese.removRecord(word);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
+
+        }
+    }
+
     private void SearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseClicked
         // TODO add your handling code here:
-        String searchText = SearchText.getText();
+        searchText = SearchText.getText();
         searchText = searchText.toLowerCase();
         if (keyLanguage == 1) {
             RecordWord recordWord = dictionary.getAnh_Viet();
-            String meaning = recordWord.getMeaning(searchText);
+            meaning = recordWord.getMeaning(searchText);
             if (meaning == null) {
                 meaningSearch.setText("Không tìm thấy !!!!!");
                 favoriteWord.setVisible(false);
@@ -244,12 +286,14 @@ public class LookupForm extends javax.swing.JPanel {
             } else {
                 meaningSearch.setText(meaning);
                 favoriteWord.setVisible(true);
+                keyFavourite = checkFavoriteWord(keyLanguage, searchText);
+                setColorStar(keyFavourite);
             }
             String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
             titleSearch.setText(str);
         } else {
             RecordWord recordWord = dictionary.getViet_Anh();
-            String meaning = recordWord.getMeaning(searchText);
+            meaning = recordWord.getMeaning(searchText);
             if (meaning == null) {
                 meaningSearch.setText("Không tìm thấy !!!!!");
                 favoriteWord.setVisible(false);
@@ -257,6 +301,9 @@ public class LookupForm extends javax.swing.JPanel {
             } else {
                 meaningSearch.setText(meaning);
                 favoriteWord.setVisible(true);
+                keyFavourite = checkFavoriteWord(keyLanguage, searchText);
+                setColorStar(keyFavourite);
+
             }
             String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
             titleSearch.setText(str);
@@ -264,40 +311,48 @@ public class LookupForm extends javax.swing.JPanel {
 
     }//GEN-LAST:event_SearchButtonMouseClicked
 
+    private void setColorStar(int keyF) {
+        if (keyF == 1) {
+            iconStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/star_yellow.png")));
+
+        } else {
+            iconStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/star.png")));
+
+        }
+    }
+
     private void favoriteWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_favoriteWordMouseClicked
         // TODO add your handling code here:
         if (keyFavourite == 0) {
-            HandleXMLFile handleXMLFile = new HandleXMLFile();
-            RecordWord  r= new RecordWord();
-            r.addRecord("hello", "cure");
-            handleXMLFile.writeXMLFile("favorite", "Data/favorite.xml", r);
-            iconStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/star_yellow.png")));
-            JOptionPane.showMessageDialog(this, "Thêm vào danh sách yêu thích thành công!");
+            addRecordFavorite(keyLanguage, searchText, meaning);
             keyFavourite = 1;
+            setColorStar(keyFavourite);
+            JOptionPane.showMessageDialog(this, "Thêm vào danh sách yêu thích thành công!");
+
         } else {
-            iconStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/star.png")));
-            JOptionPane.showMessageDialog(this, "Đã xóa khỏi danh sách yêu thích !");
+            removeRecordFavorite(keyLanguage, searchText);
             keyFavourite = 0;
+            setColorStar(keyFavourite);
+            JOptionPane.showMessageDialog(this, "Đã xóa khỏi danh sách yêu thích !");
         }
 
     }//GEN-LAST:event_favoriteWordMouseClicked
 
     private void SearchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchButtonKeyPressed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_SearchButtonKeyPressed
 
     private void SearchTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyPressed
         // TODO add your handling code here:
-     
+
     }//GEN-LAST:event_SearchTextKeyPressed
 
     private void SearchTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_SearchTextKeyTyped
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Component.Button SearchButton;

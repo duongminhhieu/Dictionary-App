@@ -27,8 +27,16 @@ public class RecordWord {
     public void addRecord(String word, String meaning) {
         records.put(word, meaning);
     }
+    
+    public void removRecord(String word){
+        records.remove(word);
+    }
 
     public String getMeaning(String word) {
         return records.get(word);
+    }
+    
+    public boolean checkWord(String word){
+        return records.containsKey(word);
     }
 }

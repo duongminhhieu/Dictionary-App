@@ -75,6 +75,7 @@ public class HandleXMLFile {
 
     public void writeXMLFile(String rootName, String filePath, RecordWord recordWord) {
         try {
+            
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
             XMLOutputFactory output = XMLOutputFactory.newInstance();
@@ -86,6 +87,7 @@ public class HandleXMLFile {
             // duyet danh sach
             HashMap<String, String> hm = recordWord.getRecords();
             hm.forEach((word, meaning) -> {
+               // System.out.println(meaning);
                 try {
                     writer.writeStartElement("record");
                     writer.writeStartElement("word");
