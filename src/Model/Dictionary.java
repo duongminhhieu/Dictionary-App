@@ -17,6 +17,9 @@ public class Dictionary {
     public static RecordWord listNewWordAnh_Viet;
     public static RecordWord listNewWordViet_Anh;
 
+    
+    
+    
 //    Getter and Setter
     public RecordWord getAnh_Viet() {
         return Anh_Viet;

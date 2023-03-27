@@ -279,42 +279,48 @@ public class LookupForm extends javax.swing.JPanel {
         return str;
     }
 
+    String searchDictionary(String word) {
+        if (keyLanguage == 1) {
+            return (String) dictionary.getAnh_Viet().getMeaning(word);
+        }
+        return (String) dictionary.getViet_Anh().getMeaning(word);
+    }
+
+    String searchListNewWord(String word) {
+        if (keyLanguage == 1) {
+            return (String) Dictionary.listNewWordAnh_Viet.getMeaning(word);
+        }
+        return (String) Dictionary.listNewWordViet_Anh.getMeaning(word);
+    }
+
     private void SearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseClicked
         // TODO add your handling code here:
         searchText = SearchText.getText();
         searchText = handlingString(searchText);
-        if (keyLanguage == 1) {
-            RecordWord recordWord = dictionary.getAnh_Viet();
-            meaning = recordWord.getMeaning(searchText);
+
+        meaning = searchListNewWord(searchText);
+        System.out.println(meaning);
+        if (meaning == null) {
+            meaning = searchDictionary(searchText);
+
             if (meaning == null) {
                 meaningSearch.setText("Không tìm thấy !!!!!");
                 favoriteWord.setVisible(false);
-
             } else {
                 meaningSearch.setText(meaning);
                 favoriteWord.setVisible(true);
                 keyFavourite = checkFavoriteWord(keyLanguage, searchText);
                 setColorStar(keyFavourite);
             }
-            String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
-            titleSearch.setText(str);
         } else {
-            RecordWord recordWord = dictionary.getViet_Anh();
-            meaning = recordWord.getMeaning(searchText);
-            if (meaning == null) {
-                meaningSearch.setText("Không tìm thấy !!!!!");
-                favoriteWord.setVisible(false);
-
-            } else {
-                meaningSearch.setText(meaning);
-                favoriteWord.setVisible(true);
-                keyFavourite = checkFavoriteWord(keyLanguage, searchText);
-                setColorStar(keyFavourite);
-
-            }
-            String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
-            titleSearch.setText(str);
+            meaningSearch.setText(meaning);
+            favoriteWord.setVisible(true);
+            keyFavourite = checkFavoriteWord(keyLanguage, searchText);
+            setColorStar(keyFavourite);
         }
+
+        String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
+        titleSearch.setText(str);
 
     }//GEN-LAST:event_SearchButtonMouseClicked
 

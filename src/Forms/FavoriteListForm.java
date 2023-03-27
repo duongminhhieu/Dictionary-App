@@ -92,12 +92,12 @@ public class FavoriteListForm extends javax.swing.JPanel {
         table = new Swing.Table();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        refreshBtn = new javax.swing.JButton();
         deleteBtn = new Component.Button();
         SelectAllBtn = new Component.Button();
         SwitchLanguageBtn = new Component.Button();
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
-        panelBorder2.setMinimumSize(new java.awt.Dimension(0, 0));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,6 +127,7 @@ public class FavoriteListForm extends javax.swing.JPanel {
         jScrollTable.setViewportView(table);
         table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setMinWidth(70);
             table.getColumnModel().getColumn(0).setMaxWidth(70);
             table.getColumnModel().getColumn(3).setMaxWidth(70);
         }
@@ -145,6 +146,15 @@ public class FavoriteListForm extends javax.swing.JPanel {
             }
         });
 
+        refreshBtn.setBackground(new java.awt.Color(248, 255, 255));
+        refreshBtn.setText("Làm mới");
+        refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        refreshBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBorder2Layout = new javax.swing.GroupLayout(panelBorder2);
         panelBorder2.setLayout(panelBorder2Layout);
         panelBorder2Layout.setHorizontalGroup(
@@ -155,6 +165,8 @@ public class FavoriteListForm extends javax.swing.JPanel {
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -166,9 +178,11 @@ public class FavoriteListForm extends javax.swing.JPanel {
                 .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelBorder2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(15, 15, 15))
+                        .addGap(17, 17, 17))
                     .addGroup(panelBorder2Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(refreshBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
@@ -225,7 +239,7 @@ public class FavoriteListForm extends javax.swing.JPanel {
                     .addComponent(SwitchLanguageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -374,6 +388,11 @@ public class FavoriteListForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_SelectAllBtnMouseClicked
 
+    private void refreshBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshBtnMouseClicked
+        // TODO add your handling code here:
+        addDataTable();
+    }//GEN-LAST:event_refreshBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Component.Button SelectAllBtn;
@@ -383,6 +402,7 @@ public class FavoriteListForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollTable;
     private Swing.PanelBorder panelBorder2;
+    private javax.swing.JButton refreshBtn;
     private Swing.Table table;
     // End of variables declaration//GEN-END:variables
 }
