@@ -9,8 +9,6 @@ import Model.Dictionary;
 import Model.HandleXMLFile;
 import Model.Model_Button;
 import Model.RecordWord;
-import Swing.SearchText;
-import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -18,23 +16,20 @@ import javax.swing.JOptionPane;
  *
  * @author RAVEN
  */
-public class LookupForm extends javax.swing.JPanel {
+public class AddNewWordForm extends javax.swing.JPanel {
 
     private int keyLanguage = 1; // 1 - Anh Viet ; 0 - Viet Anh 
     private int keyFavourite = 0; // 1 - true ; 0 - false
-    private String searchText;
+    private String textword;
     private String meaning;
-    Dictionary dictionary = new Dictionary();
 
     /**
      * Creates new form Form_1
      *
-     * @param d
      */
-    public LookupForm(Dictionary d) {
+    public AddNewWordForm() {
         initComponents();
-        dictionary = d;
-        SearchButton.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/search.png")), "Tìm kiếm"));
+        addBtn.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/7.png")), "Thêm"));
         SwitchLanguage.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
         favoriteWord.setVisible(false);
     }
@@ -49,40 +44,30 @@ public class LookupForm extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        SearchText = new Component.Header();
-        SearchButton = new Component.Button();
+        addBtn = new Component.Button();
         SwitchLanguage = new Component.Button();
+        textWord = new Component.TextBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        meaningSearch = new javax.swing.JTextArea();
+        meaningText = new javax.swing.JTextArea();
         titleSearch = new javax.swing.JLabel();
         favoriteWord = new javax.swing.JPanel();
         iconStar = new javax.swing.JLabel();
         titleSearch1 = new javax.swing.JLabel();
 
-        SearchText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(28, 181, 224)));
-        SearchText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                SearchTextKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                SearchTextKeyTyped(evt);
-            }
-        });
-
-        SearchButton.setColor1(new java.awt.Color(28, 181, 224));
-        SearchButton.setColor2(new java.awt.Color(0, 0, 120));
-        SearchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        addBtn.setColor1(new java.awt.Color(28, 181, 224));
+        addBtn.setColor2(new java.awt.Color(0, 0, 120));
+        addBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SearchButtonMouseClicked(evt);
+                addBtnMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                SearchButtonMouseEntered(evt);
+                addBtnMouseEntered(evt);
             }
         });
-        SearchButton.addKeyListener(new java.awt.event.KeyAdapter() {
+        addBtn.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                SearchButtonKeyPressed(evt);
+                addBtnKeyPressed(evt);
             }
         });
 
@@ -100,33 +85,33 @@ public class LookupForm extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(SearchText, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textWord, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(SwitchLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SearchText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SwitchLanguage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(textWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SwitchLanguage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        meaningSearch.setEditable(false);
-        meaningSearch.setColumns(20);
-        meaningSearch.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        meaningSearch.setRows(5);
-        jScrollPane1.setViewportView(meaningSearch);
+        meaningText.setColumns(20);
+        meaningText.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        meaningText.setRows(5);
+        jScrollPane1.setViewportView(meaningText);
 
         titleSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         titleSearch.setForeground(new java.awt.Color(16, 103, 158));
-        titleSearch.setText("Từ khóa `  ` được dịch như sau:");
+        titleSearch.setText("Nhập nghĩa của từ:");
 
         favoriteWord.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         favoriteWord.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -178,7 +163,7 @@ public class LookupForm extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(favoriteWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 54, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,10 +197,10 @@ public class LookupForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SearchButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseEntered
+    private void addBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseEntered
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_SearchButtonMouseEntered
+    }//GEN-LAST:event_addBtnMouseEntered
 
     private void SwitchLanguageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SwitchLanguageMouseClicked
         // TODO add your handling code here:
@@ -279,44 +264,29 @@ public class LookupForm extends javax.swing.JPanel {
         return str;
     }
 
-    private void SearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseClicked
-        // TODO add your handling code here:
-        searchText = SearchText.getText();
-        searchText = handlingString(searchText);
-        if (keyLanguage == 1) {
-            RecordWord recordWord = dictionary.getAnh_Viet();
-            meaning = recordWord.getMeaning(searchText);
-            if (meaning == null) {
-                meaningSearch.setText("Không tìm thấy !!!!!");
-                favoriteWord.setVisible(false);
+    private void addRecordNewWord(int keyL, String word, String meaning) {
+        HandleXMLFile handleXMLFile = new HandleXMLFile();
+        if (keyL == 1) {
+            Dictionary.listNewWordAnh_Viet.addRecord(word, meaning);
+            handleXMLFile.writeXMLFile("newWordEng", "Data/newWordAnh_Viet.xml", Dictionary.listNewWordAnh_Viet);
 
-            } else {
-                meaningSearch.setText(meaning);
-                favoriteWord.setVisible(true);
-                keyFavourite = checkFavoriteWord(keyLanguage, searchText);
-                setColorStar(keyFavourite);
-            }
-            String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
-            titleSearch.setText(str);
         } else {
-            RecordWord recordWord = dictionary.getViet_Anh();
-            meaning = recordWord.getMeaning(searchText);
-            if (meaning == null) {
-                meaningSearch.setText("Không tìm thấy !!!!!");
-                favoriteWord.setVisible(false);
+            Dictionary.listNewWordAnh_Viet.addRecord(word, meaning);
+            handleXMLFile.writeXMLFile("newWordVN", "Data/newWordViet_Anh.xml", Dictionary.listNewWordViet_Anh);
 
-            } else {
-                meaningSearch.setText(meaning);
-                favoriteWord.setVisible(true);
-                keyFavourite = checkFavoriteWord(keyLanguage, searchText);
-                setColorStar(keyFavourite);
-
-            }
-            String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
-            titleSearch.setText(str);
         }
+    }
 
-    }//GEN-LAST:event_SearchButtonMouseClicked
+    private void addBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseClicked
+        // TODO add your handling code here:
+        textword = textWord.getText();
+        textword = handlingString(textword);
+        meaning = meaningText.getText();
+
+        addRecordNewWord(keyLanguage, textword, meaning);
+        JOptionPane.showMessageDialog(this, "Thêm từ mới thành công!");
+
+    }//GEN-LAST:event_addBtnMouseClicked
 
     private void setColorStar(int keyF) {
         if (keyF == 1) {
@@ -331,13 +301,13 @@ public class LookupForm extends javax.swing.JPanel {
     private void favoriteWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_favoriteWordMouseClicked
         // TODO add your handling code here:
         if (keyFavourite == 0) {
-            addRecordFavorite(keyLanguage, searchText, meaning);
+            addRecordFavorite(keyLanguage, textword, meaning);
             keyFavourite = 1;
             setColorStar(keyFavourite);
             JOptionPane.showMessageDialog(this, "Thêm vào danh sách yêu thích thành công!");
 
         } else {
-            removeRecordFavorite(keyLanguage, searchText);
+            removeRecordFavorite(keyLanguage, textword);
             keyFavourite = 0;
             setColorStar(keyFavourite);
             JOptionPane.showMessageDialog(this, "Đã xóa khỏi danh sách yêu thích !");
@@ -345,32 +315,22 @@ public class LookupForm extends javax.swing.JPanel {
 
     }//GEN-LAST:event_favoriteWordMouseClicked
 
-    private void SearchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchButtonKeyPressed
+    private void addBtnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addBtnKeyPressed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_SearchButtonKeyPressed
-
-    private void SearchTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyPressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_SearchTextKeyPressed
-
-    private void SearchTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyTyped
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_SearchTextKeyTyped
+    }//GEN-LAST:event_addBtnKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Component.Button SearchButton;
-    private Component.Header SearchText;
     private Component.Button SwitchLanguage;
+    private Component.Button addBtn;
     private javax.swing.JPanel favoriteWord;
     private javax.swing.JLabel iconStar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea meaningSearch;
+    private javax.swing.JTextArea meaningText;
+    private Component.TextBox textWord;
     private javax.swing.JLabel titleSearch;
     private javax.swing.JLabel titleSearch1;
     // End of variables declaration//GEN-END:variables

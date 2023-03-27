@@ -6,6 +6,7 @@
 package Main;
 
 import Event.EventMenuSelected;
+import Forms.AddNewWordForm;
 import Forms.LookupForm;
 import Forms.Form_2;
 import Forms.FavoriteListForm;
@@ -27,15 +28,19 @@ public class Main extends javax.swing.JFrame {
     HandleXMLFile handleXMLFile;
     private LookupForm lookupForm;
     private Form_2 form2;
-    private FavoriteListForm form3;
+    private FavoriteListForm favoriteListForm;
+    private AddNewWordForm addNewWordForm;
 
     public Main() {
         init();
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
+        
+        // set form
         lookupForm = new LookupForm(dictionary);
         form2 = new Form_2();
-        form3 = new FavoriteListForm();
+        favoriteListForm = new FavoriteListForm();
+        addNewWordForm = new AddNewWordForm();
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -43,11 +48,11 @@ public class Main extends javax.swing.JFrame {
                 if (index == 0) {
                     setForm(lookupForm);
                 } else if (index == 1) {
-                    setForm(lookupForm);
+                    setForm(addNewWordForm);
                 } else if (index == 2) {
                     setForm(form2);
                 } else if (index == 3) {
-                    setForm(form3);
+                    setForm(favoriteListForm);
                 } else if (index == 6) {
                     System.exit(0);
                 }

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
+
 /**
  *
  * @author ASUS
@@ -11,11 +12,11 @@ public class Dictionary {
 
     private RecordWord Anh_Viet;
     private RecordWord Viet_Anh;
-    public static RecordWord listFavoriteWordEnglish;    
+    public static RecordWord listFavoriteWordEnglish;
     public static RecordWord listFavoriteWordVietnamese;
+    public static RecordWord listNewWordAnh_Viet;
+    public static RecordWord listNewWordViet_Anh;
 
-
-    
 //    Getter and Setter
     public RecordWord getAnh_Viet() {
         return Anh_Viet;
@@ -32,5 +33,5 @@ public class Dictionary {
     public void setViet_Anh(RecordWord Viet_Anh) {
         this.Viet_Anh = Viet_Anh;
     }
-    
+
 }

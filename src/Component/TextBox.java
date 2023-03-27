@@ -52,6 +52,9 @@ public class TextBox extends javax.swing.JPanel {
         super.paintComponent(grphcs);
     }
 
+    public String getText() {
+        return searchText1.getText();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Swing.SearchText searchText1;
     // End of variables declaration//GEN-END:variables
