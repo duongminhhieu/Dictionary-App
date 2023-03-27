@@ -35,7 +35,7 @@ public class Main extends javax.swing.JFrame {
         init();
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        
+
         // set form
         lookupForm = new LookupForm(dictionary);
         form2 = new Form_2();
@@ -69,6 +69,9 @@ public class Main extends javax.swing.JFrame {
         dictionary.setViet_Anh(handleXMLFile.readXMLFile("Data/Viet_Anh.xml"));
         Dictionary.listFavoriteWordEnglish = (handleXMLFile.readXMLFile("Data/favoriteEnglish.xml"));
         Dictionary.listFavoriteWordVietnamese = (handleXMLFile.readXMLFile("Data/favoriteVietnamese.xml"));
+        Dictionary.listNewWordAnh_Viet = (handleXMLFile.readXMLFile("Data/newWordAnh_Viet.xml"));
+        Dictionary.listNewWordViet_Anh = (handleXMLFile.readXMLFile("Data/newWordViet_Anh.xml"));
+
     }
 
     private void setForm(JComponent com) {

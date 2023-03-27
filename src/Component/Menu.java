@@ -31,7 +31,7 @@ public class Menu extends javax.swing.JPanel {
     private void init() {
         listMenu1.addItem(new Model_Menu("1", "Tra cứu từ điển", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("2", "Thêm từ mới", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("3", "Xóa từ", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("3", "Quản lý danh sách từ mới", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("4", "Danh sách yêu thích", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("5", "Thống kê tần suất tra cứu ", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("", " ", Model_Menu.MenuType.EMPTY));

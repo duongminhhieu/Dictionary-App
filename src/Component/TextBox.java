@@ -8,6 +8,7 @@ public class TextBox extends javax.swing.JPanel {
 
     public TextBox() {
         initComponents();
+        searchText1.setHint("Nhập từ mới tại đây ...");
         setOpaque(false);
     }
 
@@ -19,6 +20,7 @@ public class TextBox extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        searchText1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         searchText1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchText1ActionPerformed(evt);
@@ -29,7 +31,10 @@ public class TextBox extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(searchText1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(searchText1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -15,8 +15,17 @@ public class SearchText extends JTextField {
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setSelectionColor(new Color(220, 204, 182));
     }
-    private final String hint = "Tìm kiếm tại đây ...";
+    private String hint = "Tìm kiếm tại đây ...";
 
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
+    }
+
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g);
