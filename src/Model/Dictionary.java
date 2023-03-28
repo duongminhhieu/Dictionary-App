@@ -4,19 +4,20 @@
  */
 package Model;
 
+import java.util.List;
 /**
  *
  * @author ASUS
  */
 public class Dictionary {
 
-    private RecordWord Anh_Viet;
-    private RecordWord Viet_Anh;
-    public static RecordWord listFavoriteWordEnglish;
-    public static RecordWord listFavoriteWordVietnamese;
-    public static RecordWord listNewWordAnh_Viet;
-    public static RecordWord listNewWordViet_Anh;
-
+    private RecordWord<String, String> Anh_Viet;
+    private RecordWord<String, String> Viet_Anh;
+    public static RecordWord<String, String> listFavoriteWordEnglish;
+    public static RecordWord<String, String> listFavoriteWordVietnamese;
+    public static RecordWord<String, String> listNewWordAnh_Viet;
+    public static RecordWord<String, String> listNewWordViet_Anh;
+    public static List<DayLookup> listSearch;
     
     
     

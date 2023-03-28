@@ -8,12 +8,12 @@ package Forms;
  *
  * @author ASUS
  */
-public class SearchFrequencyStatisticsForm extends javax.swing.JPanel {
+public class LookupFrequencyStatisticsForm extends javax.swing.JPanel {
 
     /**
      * Creates new form SearchFrequencyStatisticsForm
      */
-    public SearchFrequencyStatisticsForm() {
+    public LookupFrequencyStatisticsForm() {
         initComponents();
     }
 

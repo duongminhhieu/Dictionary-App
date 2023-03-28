@@ -5,12 +5,18 @@
  */
 package Forms;
 
+import Model.DayLookup;
 import Model.Dictionary;
 import Model.HandleXMLFile;
 import Model.Model_Button;
 import Model.RecordWord;
 import Swing.SearchText;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -250,11 +256,11 @@ public class LookupForm extends javax.swing.JPanel {
         HandleXMLFile handleXMLFile = new HandleXMLFile();
         if (keyL == 1) {
             Dictionary.listFavoriteWordEnglish.addRecord(word, meaning);
-            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish, "word", "meaning");
 
         } else {
             Dictionary.listFavoriteWordVietnamese.addRecord(word, meaning);
-            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese, "word", "meaning");
 
         }
     }
@@ -263,11 +269,11 @@ public class LookupForm extends javax.swing.JPanel {
         HandleXMLFile handleXMLFile = new HandleXMLFile();
         if (keyL == 1) {
             Dictionary.listFavoriteWordEnglish.removeRecord(word);
-            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish, "word", "meaning");
 
         } else {
             Dictionary.listFavoriteWordVietnamese.removeRecord(word);
-            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese, "word", "meaning");
 
         }
     }
@@ -293,6 +299,34 @@ public class LookupForm extends javax.swing.JPanel {
         return (String) Dictionary.listNewWordViet_Anh.getMeaning(word);
     }
 
+    void addToListLookup() {
+
+        LocalDate currentDate = LocalDate.now();
+        HandleXMLFile handleXMLFile = new HandleXMLFile();
+
+        // duyet daylookup
+        for (int i = 0; i < Dictionary.listSearch.size(); i++) {
+            if (currentDate.equals(Dictionary.listSearch.get(i).getDate())) {
+
+                if (Dictionary.listSearch.get(i).getWords().containsKey(searchText)) {
+                    int value = (int) Dictionary.listSearch.get(i).getWords().get(searchText) + 1;
+                    Dictionary.listSearch.get(i).getWords().put(searchText, value);
+                } else {
+                    Dictionary.listSearch.get(i).getWords().put(searchText, 1);
+                }
+                handleXMLFile.writeFileLookup("lookup_history", "Data/listSearch.xml", Dictionary.listSearch);
+                return;
+            }
+        }
+        DayLookup d = new DayLookup();
+        HashMap<String, Integer> hm = new HashMap<>();
+        hm.put(searchText, 1);
+        d.setDate(currentDate);
+        d.setWords(hm);
+        Dictionary.listSearch.add(d);
+        handleXMLFile.writeFileLookup("lookup_history", "Data/listSearch.xml", Dictionary.listSearch);
+    }
+
     private void SearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseClicked
         // TODO add your handling code here:
         searchText = SearchText.getText();
@@ -311,12 +345,14 @@ public class LookupForm extends javax.swing.JPanel {
                 favoriteWord.setVisible(true);
                 keyFavourite = checkFavoriteWord(keyLanguage, searchText);
                 setColorStar(keyFavourite);
+                addToListLookup();
             }
         } else {
             meaningSearch.setText(meaning);
             favoriteWord.setVisible(true);
             keyFavourite = checkFavoriteWord(keyLanguage, searchText);
             setColorStar(keyFavourite);
+            addToListLookup();
         }
 
         String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";

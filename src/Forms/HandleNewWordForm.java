@@ -336,13 +336,13 @@ public class HandleNewWordForm extends javax.swing.JPanel {
             for (String key : keysToRemove) {
                 Dictionary.listNewWordAnh_Viet.removeRecord(key);
             }
-            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/newWordAnh_Viet.xml", Dictionary.listNewWordAnh_Viet);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/newWordAnh_Viet.xml", Dictionary.listNewWordAnh_Viet, "word", "meaning");
             addDataTable();
         } else {
             for (String key : keysToRemove) {
                 Dictionary.listNewWordViet_Anh.removeRecord(key);
             }
-            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/newWordViet_Anh.xml", Dictionary.listNewWordViet_Anh);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/newWordViet_Anh.xml", Dictionary.listNewWordViet_Anh, "word", "meaning");
             addDataTable();
         }
     }
@@ -419,7 +419,7 @@ public class HandleNewWordForm extends javax.swing.JPanel {
                     Dictionary.listFavoriteWordEnglish.addRecord(w, m);
                 }
             }
-            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listNewWordAnh_Viet);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listNewWordAnh_Viet, "word", "meaning");
             addDataTable();
         } else {
             for (int i = 0; i < rowCount; i++) {
@@ -431,7 +431,7 @@ public class HandleNewWordForm extends javax.swing.JPanel {
                     Dictionary.listFavoriteWordVietnamese.addRecord(w, m);
                 }
             }
-            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listNewWordViet_Anh);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listNewWordViet_Anh, "word", "meaning");
             addDataTable();
         }
     }

@@ -4,7 +4,9 @@
  */
 package Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -15,7 +17,6 @@ import java.util.HashMap;
 public class RecordWord<T1, T2> {
 
     private HashMap<T1, T2> records = new HashMap<>();
-
     
     
     public HashMap<T1, T2> getRecords() {

@@ -65,13 +65,13 @@ public class Main extends javax.swing.JFrame {
     public void init() {
         dictionary = new Dictionary();
         handleXMLFile = new HandleXMLFile();
-        dictionary.setAnh_Viet(handleXMLFile.readXMLFile("Data/Anh_Viet.xml"));
-        dictionary.setViet_Anh(handleXMLFile.readXMLFile("Data/Viet_Anh.xml"));
-        Dictionary.listFavoriteWordEnglish = (handleXMLFile.readXMLFile("Data/favoriteEnglish.xml"));
-        Dictionary.listFavoriteWordVietnamese = (handleXMLFile.readXMLFile("Data/favoriteVietnamese.xml"));
-        Dictionary.listNewWordAnh_Viet = (handleXMLFile.readXMLFile("Data/newWordAnh_Viet.xml"));
-        Dictionary.listNewWordViet_Anh = (handleXMLFile.readXMLFile("Data/newWordViet_Anh.xml"));
-
+        dictionary.setAnh_Viet(handleXMLFile.readXMLFile("Data/Anh_Viet.xml", "word", "meaning"));
+        dictionary.setViet_Anh(handleXMLFile.readXMLFile("Data/Viet_Anh.xml", "word", "meaning"));
+        Dictionary.listFavoriteWordEnglish = (handleXMLFile.readXMLFile("Data/favoriteEnglish.xml", "word", "meaning"));
+        Dictionary.listFavoriteWordVietnamese = (handleXMLFile.readXMLFile("Data/favoriteVietnamese.xml", "word", "meaning"));
+        Dictionary.listNewWordAnh_Viet = (handleXMLFile.readXMLFile("Data/newWordAnh_Viet.xml", "word", "meaning"));
+        Dictionary.listNewWordViet_Anh = (handleXMLFile.readXMLFile("Data/newWordViet_Anh.xml", "word", "meaning"));
+        Dictionary.listSearch = handleXMLFile.readFileLookup("Data/listSearch.xml");
     }
 
     private void setForm(JComponent com) {

@@ -337,13 +337,13 @@ public class FavoriteListForm extends javax.swing.JPanel {
             for (String key : keysToRemove) {
                 Dictionary.listFavoriteWordEnglish.removeRecord(key);
             }
-            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish, "word", "meaning");
             addDataTable();
         } else {
             for (String key : keysToRemove) {
                 Dictionary.listFavoriteWordVietnamese.removeRecord(key);
             }
-            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese, "word", "meaning");
             addDataTable();
         }
     }

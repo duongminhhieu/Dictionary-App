@@ -236,11 +236,11 @@ public class AddNewWordForm extends javax.swing.JPanel {
         HandleXMLFile handleXMLFile = new HandleXMLFile();
         if (keyL == 1) {
             Dictionary.listFavoriteWordEnglish.addRecord(word, meaning);
-            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish, "word", "meaning");
 
         } else {
             Dictionary.listFavoriteWordVietnamese.addRecord(word, meaning);
-            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese, "word", "meaning");
 
         }
     }
@@ -249,11 +249,11 @@ public class AddNewWordForm extends javax.swing.JPanel {
         HandleXMLFile handleXMLFile = new HandleXMLFile();
         if (keyL == 1) {
             Dictionary.listFavoriteWordEnglish.removeRecord(word);
-            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish);
+            handleXMLFile.writeXMLFile("favoriteEnglish", "Data/favoriteEnglish.xml", Dictionary.listFavoriteWordEnglish, "word", "meaning");
 
         } else {
             Dictionary.listFavoriteWordVietnamese.removeRecord(word);
-            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese);
+            handleXMLFile.writeXMLFile("favoriteVietnamese", "Data/favoriteVietnamese.xml", Dictionary.listFavoriteWordVietnamese, "word", "meaning");
 
         }
     }
@@ -269,11 +269,11 @@ public class AddNewWordForm extends javax.swing.JPanel {
         HandleXMLFile handleXMLFile = new HandleXMLFile();
         if (keyL == 1) {
             Dictionary.listNewWordAnh_Viet.addRecord(word, meaning);
-            handleXMLFile.writeXMLFile("newWordEng", "Data/newWordAnh_Viet.xml", Dictionary.listNewWordAnh_Viet);
+            handleXMLFile.writeXMLFile("newWordEng", "Data/newWordAnh_Viet.xml", Dictionary.listNewWordAnh_Viet, "word", "meaning");
 
         } else {
             Dictionary.listNewWordViet_Anh.addRecord(word, meaning);
-            handleXMLFile.writeXMLFile("newWordVN", "Data/newWordViet_Anh.xml", Dictionary.listNewWordViet_Anh);
+            handleXMLFile.writeXMLFile("newWordVN", "Data/newWordViet_Anh.xml", Dictionary.listNewWordViet_Anh, "word", "meaning");
 
         }
     }

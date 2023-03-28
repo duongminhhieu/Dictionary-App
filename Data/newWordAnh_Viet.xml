@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<newWordEng>
+<favoriteEnglish>
     <record>
         <word>hiiiiii</word>
         <meaning>xin chào kểu teen</meaning>
@@ -8,8 +8,4 @@
         <word>fuck</word>
         <meaning>taif ngủ</meaning>
     </record>
-    <record>
-        <word>fucktai</word>
-        <meaning>không chơi với tài</meaning>
-    </record>
-</newWordEng>
+</favoriteEnglish>
