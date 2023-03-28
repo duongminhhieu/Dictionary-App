@@ -10,6 +10,7 @@ import Forms.AddNewWordForm;
 import Forms.LookupForm;
 import Forms.HandleNewWordForm;
 import Forms.FavoriteListForm;
+import Forms.LookupFrequencyStatisticsForm;
 import Model.Dictionary;
 import Model.HandleXMLFile;
 import java.awt.Color;
@@ -27,9 +28,10 @@ public class Main extends javax.swing.JFrame {
     Dictionary dictionary;
     HandleXMLFile handleXMLFile;
     private LookupForm lookupForm;
-    private HandleNewWordForm form2;
+    private HandleNewWordForm handleNewWordForm;
     private FavoriteListForm favoriteListForm;
     private AddNewWordForm addNewWordForm;
+    private LookupFrequencyStatisticsForm lookupFrequencyStatisticsForm;
 
     public Main() {
         init();
@@ -38,9 +40,11 @@ public class Main extends javax.swing.JFrame {
 
         // set form
         lookupForm = new LookupForm(dictionary);
-        form2 = new HandleNewWordForm();
+        handleNewWordForm = new HandleNewWordForm();
         favoriteListForm = new FavoriteListForm();
         addNewWordForm = new AddNewWordForm();
+        lookupFrequencyStatisticsForm = new LookupFrequencyStatisticsForm();
+        
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -50,10 +54,13 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 1) {
                     setForm(addNewWordForm);
                 } else if (index == 2) {
-                    setForm(form2);
+                    setForm(handleNewWordForm);
                 } else if (index == 3) {
                     setForm(favoriteListForm);
-                } else if (index == 6) {
+                } else if(index == 4){
+                    setForm(lookupFrequencyStatisticsForm);
+                }
+                else if (index == 6) {
                     System.exit(0);
                 }
             }

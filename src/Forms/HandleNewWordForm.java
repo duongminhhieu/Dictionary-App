@@ -141,6 +141,7 @@ public class HandleNewWordForm extends javax.swing.JPanel {
         jComboBox1.setForeground(new java.awt.Color(153, 153, 153));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp ", "Sắp xếp A - Z", "Sắp xếp Z - A" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

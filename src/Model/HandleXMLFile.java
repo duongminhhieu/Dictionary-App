@@ -13,7 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -197,8 +196,10 @@ public class HandleXMLFile {
                 HashMap<String, Integer> words = new HashMap<>();
                 for (int j = 0; j < wordList.getLength(); j++) {
                     Element wordElement = (Element) wordList.item(j);
-                    String text = wordElement.getAttribute("text");
+                    String text = wordElement.getAttribute("word");
                     int count = Integer.parseInt(wordElement.getAttribute("count"));
+                    System.out.println(text + " : " + count);
+
                     words.put(text, count);
                 }
 
