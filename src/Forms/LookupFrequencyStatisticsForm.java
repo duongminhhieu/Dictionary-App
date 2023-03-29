@@ -9,9 +9,15 @@ import Model.Dictionary;
 import Model.Model_Button;
 import Swing.ScrollBar;
 import java.awt.Color;
+import java.text.Collator;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -147,7 +153,7 @@ public class LookupFrequencyStatisticsForm extends javax.swing.JPanel {
 
         jComboBox1.setBackground(new java.awt.Color(153, 204, 255));
         jComboBox1.setForeground(new java.awt.Color(153, 153, 153));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp ", "Sắp xếp A - Z", "Sắp xếp Z - A" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp ", "Sắp xếp A - Z", "Sắp xếp Z - A", "Số lần tăng dần", "Số lần giảm dần" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +216,7 @@ public class LookupFrequencyStatisticsForm extends javax.swing.JPanel {
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
+        dateText1.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         dateText1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         dateText1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(16, 103, 158), 1, true));
         dateText1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -224,6 +231,7 @@ public class LookupFrequencyStatisticsForm extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(16, 103, 158));
         jLabel2.setText("Date 1");
 
+        dateText2.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         dateText2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         dateText2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(16, 103, 158), 1, true));
         dateText2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -350,57 +358,85 @@ public class LookupFrequencyStatisticsForm extends javax.swing.JPanel {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
         // get selected value
-//        int x = jComboBox1.getSelectedIndex();
-//        HashMap<String, String> records = readData(keyLanguage);
-//        // Chuyển HashMap thành List
-//        List<Map.Entry<String, String>> list = new ArrayList<>(records.entrySet());
-//        // Sử dụng Collator để sắp xếp theo tiếng Việt
-//        Collator collator = Collator.getInstance(new Locale("vi", "VN"));
-//        collator.setStrength(Collator.SECONDARY); // Không phân biệt chữ hoa, chữ thường,
-//
-//        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-//        dtm.setRowCount(0);
-//        int i = 1;
-//
-//        switch (x) {
-//            case 0:
-//
-//                addDataTable();
-//                break;
-//            case 1:
-//                // Sắp xếp List theo thứ tự từ A-Z của key
-//                Collections.sort(list, new Comparator<Map.Entry<String, String>>() {
-//                    public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
-//                        return collator.compare(o1.getKey(), o2.getKey());
-//                    }
-//                });
-//
-//                for (Map.Entry<String, String> entry : list) {
-//                    table.addRow(new Object[]{i, entry.getKey(), entry.getValue()});
-//                    i++;
-//                    // Do something with the key and value
-//                }
-//
-//                break;
-//
-//            case 2:
-//
-//                // Sắp xếp List theo thứ tự từ A-Z của key
-//                Collections.sort(list, new Comparator<Map.Entry<String, String>>() {
-//                    public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
-//                        return collator.compare(o2.getKey(), o1.getKey());
-//                    }
-//                });
-//                for (Map.Entry<String, String> entry : list) {
-//                    table.addRow(new Object[]{i, entry.getKey(), entry.getValue()});
-//                    i++;
-//                    // Do something with the key and value
-//                }
-//
-//                break;
-//            default:
-//                break;
-//        }
+        int x = jComboBox1.getSelectedIndex();
+        // Chuyển HashMap thành List
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(listWordHashMap.entrySet());
+        // Sử dụng Collator để sắp xếp theo tiếng Việt
+        Collator collator = Collator.getInstance(new Locale("vi", "VN"));
+        collator.setStrength(Collator.SECONDARY); // Không phân biệt chữ hoa, chữ thường,
+
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        dtm.setRowCount(0);
+        int i = 1;
+
+        switch (x) {
+            case 0:
+
+                addDataTable();
+                break;
+            case 1:
+                // Sắp xếp List theo thứ tự từ A-Z của key
+                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                        return collator.compare(o1.getKey(), o2.getKey());
+                    }
+                });
+
+                for (Map.Entry<String, Integer> entry : list) {
+                    table.addRow(new Object[]{i, entry.getKey(), entry.getValue()});
+                    i++;
+                    // Do something with the key and value
+                }
+
+                break;
+
+            case 2:
+
+                // Sắp xếp List theo thứ tự từ A-Z của key
+                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                        return collator.compare(o2.getKey(), o1.getKey());
+                    }
+                });
+                for (Map.Entry<String, Integer> entry : list) {
+                    table.addRow(new Object[]{i, entry.getKey(), entry.getValue()});
+                    i++;
+                    // Do something with the key and value
+                }
+
+                break;
+
+            case 3:
+
+                // Sắp xếp List theo số lần tăng tra cứu 
+                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                        return o1.getValue() - o2.getValue();
+                    }
+                });
+                for (Map.Entry<String, Integer> entry : list) {
+                    table.addRow(new Object[]{i, entry.getKey(), entry.getValue()});
+                    i++;
+                    // Do something with the key and value
+                }
+                break;
+            case 4:
+
+                // Sắp xếp List theo số lần giảm tra cứu 
+                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                        return o2.getValue() - o1.getValue();
+                    }
+                });
+                for (Map.Entry<String, Integer> entry : list) {
+                    table.addRow(new Object[]{i, entry.getKey(), entry.getValue()});
+                    i++;
+                    // Do something with the key and value
+                }
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void refreshBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshBtnMouseClicked

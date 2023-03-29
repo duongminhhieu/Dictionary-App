@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <lookup_history>
     <day date="28-03-2023">
-        <word word="hi" count="3"/>
+        <word word="hi" count="4"/>
         <word word="a" count="2"/>
         <word word="game" count="2"/>
+        <word word="study" count="1"/>
         <word word="ăn uống" count="1"/>
-        <word word="đi ngủ" count="1"/>
-        <word word="hello" count="4"/>
         <word word="ăn" count="1"/>
         <word word="ấm" count="1"/>
         <word word="pro" count="2"/>
+        <word word="huyền" count="1"/>
         <word word="ngủ" count="1"/>
+        <word word="đi ngủ" count="1"/>
+        <word word="đi" count="1"/>
+        <word word="hello" count="4"/>
     </day>
     <day date="25-03-2023">
         <word word="hi" count="3"/>
@@ -19,5 +22,8 @@
         <word word="hello" count="4"/>
         <word word="ăn" count="1"/>
         <word word="pro" count="2"/>
+    </day>
+    <day date="29-03-2023">
+        <word word="hiếu" count="2"/>
     </day>
 </lookup_history>

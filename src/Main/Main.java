@@ -20,7 +20,7 @@ import javax.swing.JComponent;
  *
  * @author RAVEN
  */
-public class Main extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame{
 
     /**
      * Creates new form Main
