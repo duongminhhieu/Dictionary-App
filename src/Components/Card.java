@@ -1,4 +1,4 @@
-package Component;
+package Components;
 
 import Model.Model_Card;
 import java.awt.Color;

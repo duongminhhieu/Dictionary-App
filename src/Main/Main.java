@@ -98,7 +98,7 @@ public class Main extends javax.swing.JFrame{
     private void initComponents() {
 
         panelBorder1 = new Swing.PanelBorder();
-        menu = new Component.Menu();
+        menu = new Components.Menu();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -177,7 +177,7 @@ public class Main extends javax.swing.JFrame{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel mainPanel;
-    private Component.Menu menu;
+    private Components.Menu menu;
     private Swing.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables
 }

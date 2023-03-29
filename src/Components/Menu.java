@@ -1,4 +1,4 @@
-package Component;
+package Components;
 
 import Event.EventMenuSelected;
 import Model.Model_Menu;

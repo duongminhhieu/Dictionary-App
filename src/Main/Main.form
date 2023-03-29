@@ -57,7 +57,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="Component.Menu" name="menu">
+        <Component class="Components.Menu" name="menu">
         </Component>
         <Container class="javax.swing.JPanel" name="mainPanel">
           <Properties>

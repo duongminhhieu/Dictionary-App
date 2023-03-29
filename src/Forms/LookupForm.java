@@ -5,20 +5,24 @@
  */
 package Forms;
 
+import Event.EventClick;
 import Model.DayLookup;
 import Model.Dictionary;
 import Model.HandleXMLFile;
 import Model.Model_Button;
-import Model.RecordWord;
-import Swing.SearchText;
-import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
+import Model.DataSearch;
+import Swing.PanelSearch;
+import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -31,6 +35,9 @@ public class LookupForm extends javax.swing.JPanel {
     private String searchText;
     private String meaning;
     Dictionary dictionary = new Dictionary();
+    ArrayList<String> dataStory;
+    private JPopupMenu menu;
+    private PanelSearch search;
 
     /**
      * Creates new form Form_1
@@ -43,6 +50,136 @@ public class LookupForm extends javax.swing.JPanel {
         SearchButton.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/search.png")), "Tìm kiếm"));
         SwitchLanguage.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
         favoriteWord.setVisible(false);
+        initSearch();
+    }
+
+    public void initSearch() {
+
+        dataStory = new ArrayList<>();
+
+        menu = new JPopupMenu();
+        search = new PanelSearch();
+        menu.setBorder(BorderFactory.createLineBorder(new Color(164, 164, 164)));
+        menu.add(search);
+        menu.setFocusable(false);
+
+        search.addEventClick(new EventClick() {
+            @Override
+            public void itemClick(DataSearch data) {
+                menu.setVisible(false);
+                SearchText.setText(data.getText());
+
+                System.out.println("Click Item : " + data.getText());
+            }
+
+            @Override
+            public void itemRemove(Component com, DataSearch data) {
+                search.remove(com);
+                removeHistory(data.getText());
+                menu.setPopupSize(menu.getWidth(), (search.getItemSize() * 35) + 2);
+                if (search.getItemSize() == 0) {
+                    menu.setVisible(false);
+                }
+                System.out.println("Remove Item : " + data.getText());
+            }
+        });
+    }
+
+    private List<DataSearch> search(String search) {
+        int limitData = 7;
+        List<DataSearch> list = new ArrayList<>();
+        Set<String> data;
+        if (keyLanguage == 1) {
+            data = dictionary.getAnh_Viet().getRecords().keySet();
+        } else {
+            data = dictionary.getViet_Anh().getRecords().keySet();
+        }
+        for (String d : data) {
+            // tim gioi han 
+            if (d.contains(search) && (d.length() - search.length()) < 4) {
+                boolean story = isStory(d);
+                if (story) {
+                    list.add(0, new DataSearch(d, story));
+                    //  add or insert to first record
+                } else {
+                    list.add(new DataSearch(d, story));
+                    //  add to last record
+                }
+                if (list.size() == limitData) {
+                    break;
+                }
+            }
+        }
+
+        // neu size < lim -> tim trong ds tu moi
+        if (list.size()
+                < limitData) {
+            if (keyLanguage == 1) {
+                data = Dictionary.listNewWordAnh_Viet.getRecords().keySet();
+            } else {
+                data = Dictionary.listNewWordViet_Anh.getRecords().keySet();
+            }
+            for (String d : data) {
+                if (d.contains(search)) {
+                    boolean story = isStory(d);
+                    if (story) {
+                        list.add(0, new DataSearch(d, story));
+                        //  add or insert to first record
+                    } else {
+                        list.add(new DataSearch(d, story));
+                        //  add to last record
+                    }
+                    if (list.size() == limitData) {
+                        break;
+                    }
+                }
+            }
+
+        }
+        // tim khong gioi han
+
+        if (list.size() < limitData) {
+            if (keyLanguage == 1) {
+                data = dictionary.getAnh_Viet().getRecords().keySet();
+            } else {
+                data = dictionary.getViet_Anh().getRecords().keySet();
+            }
+            for (String d : data) {
+                if (d.contains(search)) {
+                    boolean story = isStory(d);
+                    if (story) {
+                        list.add(0, new DataSearch(d, story));
+                        //  add or insert to first record
+                    } else {
+                        list.add(new DataSearch(d, story));
+                        //  add to last record
+                    }
+                    if (list.size() == limitData) {
+                        break;
+                    }
+                }
+            }
+
+        }
+        return list;
+    }
+
+    private void removeHistory(String text) {
+        for (int i = 0; i < dataStory.size(); i++) {
+            String d = dataStory.get(i);
+            if (d.toLowerCase().equals(text.toLowerCase())) {
+                dataStory.set(i, "");
+            }
+        }
+    }
+
+    private boolean isStory(String text) {
+        for (String d : dataStory) {
+            if (d.toLowerCase().equals(text.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -55,9 +192,9 @@ public class LookupForm extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        SearchText = new Component.Header();
-        SearchButton = new Component.Button();
-        SwitchLanguage = new Component.Button();
+        SearchButton = new Components.Button();
+        SwitchLanguage = new Components.Button();
+        SearchText = new Components.TextBoxSearch();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         meaningSearch = new javax.swing.JTextArea();
@@ -65,16 +202,6 @@ public class LookupForm extends javax.swing.JPanel {
         favoriteWord = new javax.swing.JPanel();
         iconStar = new javax.swing.JLabel();
         titleSearch1 = new javax.swing.JLabel();
-
-        SearchText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(28, 181, 224)));
-        SearchText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                SearchTextKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                SearchTextKeyTyped(evt);
-            }
-        });
 
         SearchButton.setColor1(new java.awt.Color(28, 181, 224));
         SearchButton.setColor2(new java.awt.Color(0, 0, 120));
@@ -100,14 +227,34 @@ public class LookupForm extends javax.swing.JPanel {
             }
         });
 
+        SearchText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(28, 181, 224)));
+        SearchText.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        SearchText.setPreferredSize(new java.awt.Dimension(684, 47));
+        SearchText.setPrefixIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/search.png"))); // NOI18N
+        SearchText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchTextMouseClicked(evt);
+            }
+        });
+        SearchText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchTextActionPerformed(evt);
+            }
+        });
+        SearchText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                SearchTextKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(SearchText, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SearchText, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SwitchLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,9 +265,9 @@ public class LookupForm extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SearchText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(SearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SwitchLanguage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SwitchLanguage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SearchText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -180,11 +327,11 @@ public class LookupForm extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(titleSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(titleSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(favoriteWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 54, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,10 +376,13 @@ public class LookupForm extends javax.swing.JPanel {
             keyLanguage = 0;
             SwitchLanguage.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Việt - Anh"));
             //SearchText.setHintText("Nhập từ tiếng Việt");
+            //addSuggestionFromDictionary();
+
         } else {
             keyLanguage = 1;
             SwitchLanguage.setData(new Model_Button(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "Anh - Việt"));
             //SearchText.setHintText("Nhập từ tiếng Anh");
+            ////addSuggestionFromDictionary();
 
         }
 
@@ -280,7 +430,7 @@ public class LookupForm extends javax.swing.JPanel {
 
     public String handlingString(String str) {
 
-        str = str.toLowerCase();
+        //str = str.toLowerCase();
         str = str.trim();
         return str;
     }
@@ -346,6 +496,7 @@ public class LookupForm extends javax.swing.JPanel {
                 keyFavourite = checkFavoriteWord(keyLanguage, searchText);
                 setColorStar(keyFavourite);
                 addToListLookup();
+                dataStory.add(searchText);
             }
         } else {
             meaningSearch.setText(meaning);
@@ -392,21 +543,35 @@ public class LookupForm extends javax.swing.JPanel {
 
     }//GEN-LAST:event_SearchButtonKeyPressed
 
-    private void SearchTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyPressed
+    private void SearchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchTextActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_SearchTextActionPerformed
 
-    }//GEN-LAST:event_SearchTextKeyPressed
-
-    private void SearchTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyTyped
+    private void SearchTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchTextMouseClicked
         // TODO add your handling code here:
+        if (search.getItemSize() > 0) {
+            menu.show(SearchText, 0, SearchText.getHeight());
+        }
+    }//GEN-LAST:event_SearchTextMouseClicked
 
-    }//GEN-LAST:event_SearchTextKeyTyped
+    private void SearchTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyReleased
+        // TODO add your handling code here:
+        String text = SearchText.getText().trim().toLowerCase();
+        search.setData(search(text));
+        if (search.getItemSize() > 0) {
+            //  * 2 top and bot border
+            menu.show(SearchText, 0, SearchText.getHeight());
+            menu.setPopupSize(menu.getWidth(), (search.getItemSize() * 35) + 2);
+        } else {
+            menu.setVisible(false);
+        }
+    }//GEN-LAST:event_SearchTextKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Component.Button SearchButton;
-    private Component.Header SearchText;
-    private Component.Button SwitchLanguage;
+    private Components.Button SearchButton;
+    private Components.TextBoxSearch SearchText;
+    private Components.Button SwitchLanguage;
     private javax.swing.JPanel favoriteWord;
     private javax.swing.JLabel iconStar;
     private javax.swing.JPanel jPanel1;

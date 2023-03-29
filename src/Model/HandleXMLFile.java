@@ -189,7 +189,7 @@ public class HandleXMLFile {
                 String date = dayElement.getAttribute("date");
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 DayLookup dayLookup = new DayLookup();
-                System.out.println(date);
+                //System.out.println(date);
                 dayLookup.setDate(LocalDate.parse(date, formatter)); // set day
 
                 NodeList wordList = dayElement.getElementsByTagName("word");
@@ -198,7 +198,7 @@ public class HandleXMLFile {
                     Element wordElement = (Element) wordList.item(j);
                     String text = wordElement.getAttribute("word");
                     int count = Integer.parseInt(wordElement.getAttribute("count"));
-                    System.out.println(text + " : " + count);
+                    //System.out.println(text + " : " + count);
 
                     words.put(text, count);
                 }

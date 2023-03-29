@@ -67,7 +67,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="Component.Button" name="addBtn">
+        <Component class="Components.Button" name="addBtn">
           <Properties>
             <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="b5" red="1c" type="rgb"/>
@@ -82,7 +82,7 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="addBtnKeyPressed"/>
           </Events>
         </Component>
-        <Component class="Component.Button" name="SwitchLanguage">
+        <Component class="Components.Button" name="SwitchLanguage">
           <Properties>
             <Property name="color1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e0" green="b5" red="1c" type="rgb"/>
@@ -95,7 +95,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SwitchLanguageMouseClicked"/>
           </Events>
         </Component>
-        <Component class="Component.TextBox" name="textWord">
+        <Component class="Components.TextBox" name="textWord">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

@@ -111,9 +111,9 @@ public class LookupFrequencyStatisticsForm extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         dateText2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        viewFullBtn = new Component.Button();
+        viewFullBtn = new Components.Button();
         nowDateBtn = new javax.swing.JButton();
-        StatisticBtn1 = new Component.Button();
+        StatisticBtn1 = new Components.Button();
 
         date1.setForeground(new java.awt.Color(70, 168, 220));
         date1.setTextRefernce(dateText1);
@@ -537,7 +537,7 @@ public class LookupFrequencyStatisticsForm extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Component.Button StatisticBtn1;
+    private Components.Button StatisticBtn1;
     private com.raven.datechooser.DateChooser date1;
     private com.raven.datechooser.DateChooser date2;
     private javax.swing.JTextField dateText1;
@@ -553,6 +553,6 @@ public class LookupFrequencyStatisticsForm extends javax.swing.JPanel {
     private javax.swing.JButton refreshBtn;
     private Swing.Table table;
     private javax.swing.JLabel titleTable;
-    private Component.Button viewFullBtn;
+    private Components.Button viewFullBtn;
     // End of variables declaration//GEN-END:variables
 }

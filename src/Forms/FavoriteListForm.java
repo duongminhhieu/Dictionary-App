@@ -93,9 +93,9 @@ public class FavoriteListForm extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         refreshBtn = new javax.swing.JButton();
-        deleteBtn = new Component.Button();
-        SelectAllBtn = new Component.Button();
-        SwitchLanguageBtn = new Component.Button();
+        deleteBtn = new Components.Button();
+        SelectAllBtn = new Components.Button();
+        SwitchLanguageBtn = new Components.Button();
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -396,9 +396,9 @@ public class FavoriteListForm extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Component.Button SelectAllBtn;
-    private Component.Button SwitchLanguageBtn;
-    private Component.Button deleteBtn;
+    private Components.Button SelectAllBtn;
+    private Components.Button SwitchLanguageBtn;
+    private Components.Button deleteBtn;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollTable;

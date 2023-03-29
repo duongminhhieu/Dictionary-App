@@ -8,7 +8,6 @@ package Forms;
 import Model.Dictionary;
 import Model.HandleXMLFile;
 import Model.Model_Button;
-import Model.RecordWord;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -44,9 +43,9 @@ public class AddNewWordForm extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        addBtn = new Component.Button();
-        SwitchLanguage = new Component.Button();
-        textWord = new Component.TextBox();
+        addBtn = new Components.Button();
+        SwitchLanguage = new Components.Button();
+        textWord = new Components.TextBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         meaningText = new javax.swing.JTextArea();
@@ -331,15 +330,15 @@ public class AddNewWordForm extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Component.Button SwitchLanguage;
-    private Component.Button addBtn;
+    private Components.Button SwitchLanguage;
+    private Components.Button addBtn;
     private javax.swing.JPanel favoriteWord;
     private javax.swing.JLabel iconStar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea meaningText;
-    private Component.TextBox textWord;
+    private Components.TextBox textWord;
     private javax.swing.JLabel titleSearch;
     private javax.swing.JLabel titleSearch1;
     // End of variables declaration//GEN-END:variables
