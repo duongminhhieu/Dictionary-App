@@ -3,18 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Main/Main.java</file>
-            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Components/TextBoxSearch.java</file>
-            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Forms/AddNewWordForm.java</file>
             <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Components/TextBox.java</file>
-            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Model/HandleXMLFile.java</file>
             <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Swing/Search_Item.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Swing/SearchText.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Forms/LookupForm.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/Data/newWordAnh_Viet.xml</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Forms/HandleNewWordForm.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Main/Main.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Model/DataSearch.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Components/TextBoxSearch.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/Data/newWordViet_Anh.xml</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/Data/favoriteEnglish.xml</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Forms/AddNewWordForm.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Model/HandleXMLFile.java</file>
             <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Model/Dictionary.java</file>
             <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Model/RecordWord.java</file>
-            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Swing/SearchText.java</file>
             <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/Data/listSearch.xml</file>
-            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Forms/LookupForm.java</file>
-            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Forms/HandleNewWordForm.java</file>
+            <file>file:/G:/Document/DAIHOC/Nam%203/Java/w4%20Generics%20&amp;%20CollectionURL/Dictionary%20App/src/Model/Helper.java</file>
         </group>
     </open-files>
 </project-private>

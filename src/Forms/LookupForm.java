@@ -504,6 +504,7 @@ public class LookupForm extends javax.swing.JPanel {
             keyFavourite = checkFavoriteWord(keyLanguage, searchText);
             setColorStar(keyFavourite);
             addToListLookup();
+            dataStory.add(searchText);
         }
 
         String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";

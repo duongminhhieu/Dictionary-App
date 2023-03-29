@@ -7,10 +7,12 @@ package Model;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -89,12 +91,14 @@ public class HandleXMLFile {
     }
 
     public void writeXMLFile(String rootName, String filePath, RecordWord recordWord, String pram1, String pram2) {
+
         try {
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-
+            OutputStreamWriter osw = new OutputStreamWriter(out, StandardCharsets.UTF_8);
             XMLOutputFactory output = XMLOutputFactory.newInstance();
-            XMLStreamWriter writer = output.createXMLStreamWriter(out);
+            XMLStreamWriter writer = output.createXMLStreamWriter(osw);
+
             writer.writeStartDocument("utf-8", "1.0");
 
             writer.writeStartElement(rootName);
@@ -127,11 +131,15 @@ public class HandleXMLFile {
             String xml = new String(out.toByteArray(), StandardCharsets.UTF_8);
             // System.out.println(formatXML(xml));
             String prettyPrintXML = formatXML(xml);
-            // print to console
-            // System.out.println(prettyPrintXML);
-            // Java 11 - write to file
-            Files.writeString(Paths.get(filePath),
+//            // print to console
+//            // System.out.println(prettyPrintXML);
+//            // Java 11 - write to file
+
+            File xmlFile = new File(filePath);
+            Path path = xmlFile.toPath();
+            Files.writeString(path,
                     prettyPrintXML, StandardCharsets.UTF_8);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -218,9 +226,9 @@ public class HandleXMLFile {
         try {
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-
+            OutputStreamWriter osw = new OutputStreamWriter(out, StandardCharsets.UTF_8);
             XMLOutputFactory output = XMLOutputFactory.newInstance();
-            XMLStreamWriter writer = output.createXMLStreamWriter(out);
+            XMLStreamWriter writer = output.createXMLStreamWriter(osw);
             writer.writeStartDocument("utf-8", "1.0");
 
             writer.writeStartElement(rootName);
@@ -256,6 +264,7 @@ public class HandleXMLFile {
             // print to console
             // System.out.println(prettyPrintXML);
             // Java 11 - write to file
+
             Files.writeString(Paths.get(filePath),
                     prettyPrintXML, StandardCharsets.UTF_8);
         } catch (Exception e) {
