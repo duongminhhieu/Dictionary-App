@@ -14,6 +14,7 @@ import Model.DataSearch;
 import Swing.PanelSearch;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -227,7 +228,6 @@ public class LookupForm extends javax.swing.JPanel {
             }
         });
 
-        SearchText.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(28, 181, 224)));
         SearchText.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         SearchText.setPreferredSize(new java.awt.Dimension(684, 47));
         SearchText.setPrefixIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/search.png"))); // NOI18N
@@ -242,6 +242,9 @@ public class LookupForm extends javax.swing.JPanel {
             }
         });
         SearchText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SearchTextKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 SearchTextKeyReleased(evt);
             }
@@ -557,16 +560,58 @@ public class LookupForm extends javax.swing.JPanel {
 
     private void SearchTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyReleased
         // TODO add your handling code here:
-        String text = SearchText.getText().trim().toLowerCase();
-        search.setData(search(text));
-        if (search.getItemSize() > 0) {
-            //  * 2 top and bot border
-            menu.show(SearchText, 0, SearchText.getHeight());
-            menu.setPopupSize(menu.getWidth(), (search.getItemSize() * 35) + 2);
-        } else {
-            menu.setVisible(false);
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
+            String text = SearchText.getText().trim().toLowerCase();
+            search.setData(search(text));
+            if (search.getItemSize() > 0) {
+                //  * 2 top and bot border
+                menu.show(SearchText, 0, SearchText.getHeight());
+                menu.setPopupSize(menu.getWidth(), (search.getItemSize() * 35) + 2);
+            } else {
+                menu.setVisible(false);
+            }
         }
+
     }//GEN-LAST:event_SearchTextKeyReleased
+
+    private void SearchTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchTextKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            menu.setVisible(false);
+
+            searchText = SearchText.getText();
+            searchText = handlingString(searchText);
+
+            meaning = searchListNewWord(searchText);
+            System.out.println(meaning);
+            if (meaning == null) {
+                meaning = searchDictionary(searchText);
+
+                if (meaning == null) {
+                    meaningSearch.setText("Không tìm thấy !!!!!");
+                    favoriteWord.setVisible(false);
+                } else {
+                    meaningSearch.setText(meaning);
+                    favoriteWord.setVisible(true);
+                    keyFavourite = checkFavoriteWord(keyLanguage, searchText);
+                    setColorStar(keyFavourite);
+                    addToListLookup();
+                    dataStory.add(searchText);
+                }
+            } else {
+                meaningSearch.setText(meaning);
+                favoriteWord.setVisible(true);
+                keyFavourite = checkFavoriteWord(keyLanguage, searchText);
+                setColorStar(keyFavourite);
+                addToListLookup();
+                dataStory.add(searchText);
+            }
+
+            String str = "Từ khóa ``" + searchText + "`` được dịch như sau: ";
+            titleSearch.setText(str);
+
+        }
+    }//GEN-LAST:event_SearchTextKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
